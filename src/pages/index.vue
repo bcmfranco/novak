@@ -51,6 +51,7 @@
 export default {
   data() {
     return {
+      computer_play: true,
       match_alive: true,
       energy: 0,
       player_active: 1,
@@ -118,43 +119,56 @@ export default {
         }
       }
     },
-    shot(player) { // Hace jugar el punto con show_power y energy
+    shot() { // Hace jugar el punto con show_power y energy
       var shot_power = this.rollDice();
-
-
-      if(player === 1){
-        var anti_player = 2;
-        this.player_active = 2;
-      } else {
-        var anti_player = 1;
-        this.player_active = 1;
-      }
 
       console.log("energy: ",this.energy, "power:", shot_power);
 
       if(shot_power > this.energy){
-        // console.log("hi");
         this.energy = shot_power - this.energy;
 
         console.log("new energy: ",this.energy);
       } else {
-        // console.log("hao");
         this.energy = 0;
         this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
         setTimeout(() => {
           this.courtBackgroundColor = '#ffffff33'; // Restaurar color de fondo después de 1 segundo
         }, 1000);
 
-        this.getPoint(anti_player);
+        this.getPoint(2);
 
       }
 
-      setTimeout(() => {
+      if(this.computer_play){
+        setTimeout(() => {
 
-        console.log("va a jugar el 2");
+          console.log("va a jugar el 2");
 
-        this.shot(2);
-      }, 2000);
+          this.shot_com();
+        }, 2000);
+      }
+
+
+
+    },
+    shot_com(){
+      var shot_power = this.rollDice();
+
+      console.log("energy: ",this.energy, "power:", shot_power);
+
+      if(shot_power > this.energy){
+        this.energy = shot_power - this.energy;
+
+        console.log("new energy: ",this.energy);
+      } else {
+        this.energy = 0;
+        this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
+        setTimeout(() => {
+          this.courtBackgroundColor = '#ffffff33'; // Restaurar color de fondo después de 1 segundo
+        }, 1000);
+
+        this.getPoint(1);
+      }
 
     },
     restartMatch() { // Reinicia el puntaje y el estado del juego
