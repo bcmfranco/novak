@@ -79,10 +79,19 @@ export default {
       return this.dice;
     },
     ballBoy(){ // Devuelve la pelota al que tiene el servicio en ese set
+      
+      if(this.current_set == 2){
+        setTimeout(() => {
+          this.shot(2);
+        }, 4000);
+      }
+      
       if(this.current_set == 2){
         this.player_active = 2;
+        this.message = "Sirve la computadora";
       } else {
         this.player_active = 1;
+        this.message = "Sirve el jugador 1";
       }
     },
     getSet(){ // Da por ganador el set y cambia al siguiente
@@ -90,20 +99,16 @@ export default {
         this.current_set++;
 
         this.message = "Comienza un nuevo set";
-        if(this.current_set == 2){
-          setTimeout(() => {
-            this.shot(2);
-          }, 4000);
-        }
       } else {
-        console.log("Partido terminado");
-        this.postMessage("Partido terminado");
+        this.message("Partido terminado");
         this.match_alive = false;
       }
     },
     getPoint(player){ // Da por ganador el punto y el set si es necesario
 
-      this.message = "Punto para"+player+"";
+      // Hay que hacer que el p2 haga el servicio después de un punto en el set 2
+
+      this.message = "Punto para "+player+"";
       if(player === 1){
         this.puntos.jugador1[this.current_set]++;
         if(this.puntos.jugador1[this.current_set] > 5){
@@ -133,6 +138,7 @@ export default {
     },
     shot(player) { // Hace jugar el punto con show_power y energy
       var shot_power = this.rollDice();
+      this.message = "";
 
       if(player === 1){
         var anti_player = 2;
@@ -146,7 +152,6 @@ export default {
         this.energy = shot_power - this.energy;
         if(this.player_active == 2){
           setTimeout(() => {
-            console.log("va a jugar el dos");
             this.shot(2);
           }, 1000);
         }
