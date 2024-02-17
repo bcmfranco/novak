@@ -35,7 +35,7 @@
           <div id="dice">
             <div>{{ dice }}</div>
           </div>
-          <button class="racket racket-com" id="racket_p2">COM</button>
+          <button class="racket" id="racket_p2" @click="shot(2)">P2</button>
         </div>
       </div>
     </div>
@@ -51,7 +51,6 @@
 export default {
   data() {
     return {
-      computer_play: true,
       match_alive: true,
       energy: 0,
       player_active: 1,
@@ -62,8 +61,8 @@ export default {
       dice: 1,
       courtBackgroundColor: '#ffffff33', // Color de fondo inicial del #court
       puntos: {
-        jugador1: { 1: 4, 2: 4, 3: 4 },
-        jugador2: { 1: 4, 2: 4, 3: 4 },
+        jugador1: { 1: 0, 2: 0, 3: 0 },
+        jugador2: { 1: 0, 2: 0, 3: 0 },
       },
       current_set: 1,
     };
@@ -119,59 +118,35 @@ export default {
         }
       }
     },
-    shot() { // Hace jugar el punto con show_power y energy
+    shot(player) { // Hace jugar el punto con show_power y energy
       var shot_power = this.rollDice();
-      this.player_active = 2;
+
+
+      if(player === 1){
+        var anti_player = 2;
+        this.player_active = 2;
+      } else {
+        var anti_player = 1;
+        this.player_active = 1;
+      }
 
       console.log("energy: ",this.energy, "power:", shot_power);
 
       if(shot_power > this.energy){
+        // console.log("hi");
         this.energy = shot_power - this.energy;
 
         console.log("new energy: ",this.energy);
       } else {
+        // console.log("hao");
         this.energy = 0;
         this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
         setTimeout(() => {
           this.courtBackgroundColor = '#ffffff33'; // Restaurar color de fondo después de 1 segundo
         }, 1000);
 
-        this.getPoint(2);
-
+        this.getPoint(anti_player);
       }
-
-      if(this.computer_play){
-        setTimeout(() => {
-          this.player_active = 1;
-
-          console.log("va a jugar el 2");
-
-          this.shot_com();
-        }, 1000);
-      }
-
-
-
-    },
-    shot_com(){
-      var shot_power = this.rollDice();
-
-      console.log("energy: ",this.energy, "power:", shot_power);
-
-      if(shot_power > this.energy){
-        this.energy = shot_power - this.energy;
-
-        console.log("new energy: ",this.energy);
-      } else {
-        this.energy = 0;
-        this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
-        setTimeout(() => {
-          this.courtBackgroundColor = '#ffffff33'; // Restaurar color de fondo después de 1 segundo
-        }, 1000);
-
-        this.getPoint(1);
-      }
-
     },
     restartMatch() { // Reinicia el puntaje y el estado del juego
       this.puntos = {
@@ -210,7 +185,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #a47561;
+    background-color: #a16f55;
   }
 
   h1#logo {
@@ -262,7 +237,7 @@ export default {
     height: 80px;
     font-size: 24px;
     border: none;
-    background-color: #8b7369;
+    background-color: #4c96af; /* Cambié el color del botón */
     color: #ffffff;
     border-radius: 50%;
     cursor: pointer;
@@ -273,12 +248,8 @@ export default {
     box-shadow: -2px 3px 4px 0px rgba(0, 0, 0, 3); 
   }
 
-  .racket-com {
-    box-shadow: unset;
-  }
-
   .racket:hover {
-    background-color: #e0b173; /* Cambié el color al pasar el ratón */
+    background-color: #72b5cc; /* Cambié el color al pasar el ratón */
   }
 
   #buttoner {
@@ -330,7 +301,7 @@ export default {
   #barr {
     width: 30px;
     height: 250px;
-    background-color: #b79b8f;
+    background-color: #849db2;
     display: flex;
     align-items: center;
     border-radius: 15px;
@@ -358,16 +329,16 @@ export default {
     font-size: 48px;
     font-weight: bold;
     color: #ffffff;
-    background-color: #8e7e78;
+    background-color: #9e9e9e; /* Cambié el color de fondo */
     width: 80px;
     height: 80px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Suavicé la sombra */
     margin: 10px 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
   }
 
   .dice-roll {
