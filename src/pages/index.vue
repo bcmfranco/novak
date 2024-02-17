@@ -21,6 +21,10 @@
       </div>
     </div>
 
+    <div id="messenger">
+      <p> {{ message }}</p>
+    </div>
+
     <div id="wrapper" v-if="match_alive">
       <div id="court" :style="{ backgroundColor: courtBackgroundColor }">
         <div id="energy">{{ energy }}</div>
@@ -65,6 +69,7 @@ export default {
         jugador2: { 1: 4, 2: 4, 3: 4 },
       },
       current_set: 1,
+      message: '',
     };
   },
   methods: {
@@ -84,6 +89,7 @@ export default {
       if(this.current_set < 3){
         this.current_set++;
 
+        this.message = "Comienza un nuevo set";
         if(this.current_set == 2){
           setTimeout(() => {
             this.shot(2);
@@ -91,11 +97,13 @@ export default {
         }
       } else {
         console.log("Partido terminado");
+        this.postMessage("Partido terminado");
         this.match_alive = false;
       }
     },
     getPoint(player){ // Da por ganador el punto y el set si es necesario
 
+      this.message = "Punto para"+player+"";
       if(player === 1){
         this.puntos.jugador1[this.current_set]++;
         if(this.puntos.jugador1[this.current_set] > 5){
@@ -366,6 +374,21 @@ export default {
     border: 2px solid #cccccc;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
+  }
+
+  #messenger{
+    display: grid;
+    align-content: center;
+    background-color: #5e5e5e;
+    width: 300px;
+    height: 50px;
+    text-align: left;
+    color: #e0e0e0;
+    border: 2px solid #cccccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    margin: 10px 0px;
+    padding: 10px;
   }
 
   .player_score {
