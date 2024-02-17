@@ -70,29 +70,26 @@ export default {
   methods: {
     rollDice() { // Rola el dado
       this.dice = Math.floor(Math.random() * 6) + 1;
-      console.log("dice", this.dice);
+      // console.log("dice", this.dice);
 
       return this.dice;
     },
     ballBoy(){ // Devuelve la pelota al que tiene el servicio en ese set
-
-      console.log("entró en ballbay");
-
       if(this.current_set == 2){
-
-        console.log("hi");
-
         this.player_active = 2;
       } else {
         this.player_active = 1;
-
-        console.log("hao");
       }
-
     },
     getSet(){ // Da por ganador el set y cambia al siguiente
       if(this.current_set < 3){
         this.current_set++;
+
+        if(this.current_set == 2){
+          setTimeout(() => {
+            this.shot(2);
+          }, 4000);
+        }
       } else {
         console.log("Partido terminado");
         this.match_alive = false;
@@ -139,7 +136,6 @@ export default {
     shot(player) { // Hace jugar el punto con show_power y energy
       var shot_power = this.rollDice();
 
-
       if(player === 1){
         var anti_player = 2;
         this.player_active = 2;
@@ -159,15 +155,10 @@ export default {
         if(this.player_active == 2){
           setTimeout(() => {
             console.log("va a jugar el dos");
-
             this.shot(2);
-
           }, 1000);
         }
-
-
-
-
+        
       } else {
         // console.log("hao");
         this.energy = 0;
