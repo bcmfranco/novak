@@ -61,8 +61,8 @@ export default {
       dice: 1,
       courtBackgroundColor: '#ffffff33', // Color de fondo inicial del #court
       puntos: {
-        jugador1: { 1: 0, 2: 0, 3: 0 },
-        jugador2: { 1: 0, 2: 0, 3: 0 },
+        jugador1: { 1: 4, 2: 4, 3: 4 },
+        jugador2: { 1: 4, 2: 4, 3: 4 },
       },
       current_set: 1,
     };
@@ -74,6 +74,22 @@ export default {
 
       return this.dice;
     },
+    ballBoy(){ // Devuelve la pelota al que tiene el servicio en ese set
+
+      console.log("entró en ballbay");
+
+      if(this.current_set == 2){
+
+        console.log("hi");
+
+        this.player_active = 2;
+      } else {
+        this.player_active = 1;
+
+        console.log("hao");
+      }
+
+    },
     getSet(){ // Da por ganador el set y cambia al siguiente
       if(this.current_set < 3){
         this.current_set++;
@@ -84,12 +100,12 @@ export default {
     },
     getPoint(player){ // Da por ganador el punto y el set si es necesario
 
-      console.log("punto para", player);
+      // console.log("punto para", player);
 
       if(player === 1){
         this.puntos.jugador1[this.current_set]++;
 
-        console.log(this.puntos.jugador1[this.current_set]);
+        // console.log(this.puntos.jugador1[this.current_set]);
 
 
         if(this.puntos.jugador1[this.current_set] > 5){
@@ -105,7 +121,7 @@ export default {
       } else {
         this.puntos.jugador2[this.current_set]++;
 
-        console.log(this.puntos.jugador2[this.current_set]);
+        // console.log(this.puntos.jugador2[this.current_set]);
 
         if(this.puntos.jugador2[this.current_set] > 5){
           if(this.puntos.jugador2[this.current_set] > 6){
@@ -117,6 +133,8 @@ export default {
           }
         }
       }
+
+      this.ballBoy();
     },
     shot(player) { // Hace jugar el punto con show_power y energy
       var shot_power = this.rollDice();
@@ -130,13 +148,26 @@ export default {
         this.player_active = 1;
       }
 
-      console.log("energy: ",this.energy, "power:", shot_power);
+      // console.log("energy: ",this.energy, "power:", shot_power);
 
       if(shot_power > this.energy){
         // console.log("hi");
         this.energy = shot_power - this.energy;
 
-        console.log("new energy: ",this.energy);
+        // console.log("new energy: ",this.energy);
+
+        if(this.player_active == 2){
+          setTimeout(() => {
+            console.log("va a jugar el dos");
+
+            this.shot(2);
+
+          }, 1000);
+        }
+
+
+
+
       } else {
         // console.log("hao");
         this.energy = 0;
