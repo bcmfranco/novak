@@ -4,7 +4,7 @@
 
     <div id="pointer">
       <div class="player_score">
-        <div class="player_name" id="player_1_name">Player 1</div>
+        <div class="player_name" id="player_1_name">{{ this.player_1_name }}</div>
         <ul>
           <li>{{ puntos.jugador1[1] }}</li>
           <li>{{ puntos.jugador1[2] }}</li>
@@ -12,7 +12,7 @@
         </ul>
       </div>
       <div class="player_score">
-        <div class="player_name" id="player_2_name">Player 2</div>
+        <div class="player_name" id="player_2_name">{{ this.player_2_name }}</div>
         <ul>
           <li>{{ puntos.jugador2[1] }}</li>
           <li>{{ puntos.jugador2[2] }}</li>
@@ -55,6 +55,8 @@
 export default {
   data() {
     return {
+      player_1_name : "Player 1",
+      player_2_name : "Computadora",
       match_alive: true,
       energy: 0,
       player_active: 1,
@@ -105,9 +107,6 @@ export default {
       }
     },
     getPoint(player){ // Da por ganador el punto y el set si es necesario
-
-      // Hay que hacer que el p2 haga el servicio después de un punto en el set 2
-
       this.message = "Punto para "+player+"";
       if(player === 1){
         this.puntos.jugador1[this.current_set]++;
@@ -397,8 +396,9 @@ export default {
   }
 
   .player_score {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-content: center;
     font-size: 24px;
     height: 50px;
   }
