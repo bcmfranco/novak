@@ -70,7 +70,6 @@ export default {
   methods: {
     rollDice() { // Rola el dado
       this.dice = Math.floor(Math.random() * 6) + 1;
-      // console.log("dice", this.dice);
 
       return this.dice;
     },
@@ -97,14 +96,8 @@ export default {
     },
     getPoint(player){ // Da por ganador el punto y el set si es necesario
 
-      // console.log("punto para", player);
-
       if(player === 1){
         this.puntos.jugador1[this.current_set]++;
-
-        // console.log(this.puntos.jugador1[this.current_set]);
-
-
         if(this.puntos.jugador1[this.current_set] > 5){
           if(this.puntos.jugador1[this.current_set] > 6){
             this.getSet();
@@ -117,9 +110,6 @@ export default {
 
       } else {
         this.puntos.jugador2[this.current_set]++;
-
-        // console.log(this.puntos.jugador2[this.current_set]);
-
         if(this.puntos.jugador2[this.current_set] > 5){
           if(this.puntos.jugador2[this.current_set] > 6){
             this.getSet();
@@ -144,23 +134,16 @@ export default {
         this.player_active = 1;
       }
 
-      // console.log("energy: ",this.energy, "power:", shot_power);
-
       if(shot_power > this.energy){
-        // console.log("hi");
         this.energy = shot_power - this.energy;
-
-        // console.log("new energy: ",this.energy);
-
         if(this.player_active == 2){
           setTimeout(() => {
             console.log("va a jugar el dos");
             this.shot(2);
           }, 1000);
         }
-        
+
       } else {
-        // console.log("hao");
         this.energy = 0;
         this.courtBackgroundColor = '#ff6666'; // Cambiar color de fondo en caso de 'Fail'
         setTimeout(() => {
@@ -200,7 +183,7 @@ export default {
   }
 
   #container {
-    background-color: #f5f5f5; /* Cambié el color de fondo */
+    background-color: #f5f5f5;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -259,7 +242,7 @@ export default {
     height: 80px;
     font-size: 24px;
     border: none;
-    background-color: #4c96af; /* Cambié el color del botón */
+    background-color: #4c96af;
     color: #ffffff;
     border-radius: 50%;
     cursor: pointer;
@@ -275,7 +258,7 @@ export default {
   }
 
   .racket:hover {
-    background-color: #72b5cc; /* Cambié el color al pasar el ratón */
+    background-color: #72b5cc;
   }
 
   #buttoner {
@@ -285,17 +268,17 @@ export default {
   #restart_btn {
     padding: 10px 20px;
     font-size: 18px;
-    background-color: #f44336; /* Cambié el color del botón */
+    background-color: #f44336;
     color: #ffffff;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 3); /* Añadí una sombra suave */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 3);
   }
 
   #restart_btn:hover {
-    background-color: #f1655b; /* Cambié el color al pasar el ratón */
+    background-color: #f1655b;
   }
 
   #wrapper{
@@ -306,7 +289,7 @@ export default {
   }
 
   #court {
-    border: 2px solid #cccccc; /* Cambié el color del borde */
+    border: 2px solid #cccccc;
     width: 150px;
     height: 400px;
     border-radius: 15px;
@@ -314,7 +297,7 @@ export default {
     justify-items: center;
     align-items: center;
     transition: background-color 1s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ffffff33;
   }
 
@@ -355,16 +338,16 @@ export default {
     font-size: 48px;
     font-weight: bold;
     color: #ffffff;
-    background-color: #9e9e9e; /* Cambié el color de fondo */
+    background-color: #9e9e9e;
     width: 80px;
     height: 80px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Suavicé la sombra */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     margin: 10px 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .dice-roll {
