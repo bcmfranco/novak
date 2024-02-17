@@ -35,7 +35,7 @@
           <div id="dice">
             <div>{{ dice }}</div>
           </div>
-          <button class="racket" id="racket_p2" @click="shot(2)">P2</button>
+          <button class="racket" id="racket_p2">COM</button>
         </div>
       </div>
     </div>
@@ -246,6 +246,10 @@ export default {
     justify-content: center;
     align-items: center;
     box-shadow: -2px 3px 4px 0px rgba(0, 0, 0, 3); 
+  }
+
+  #racket_p2{
+    box-shadow: unset;
   }
 
   .racket:hover {
