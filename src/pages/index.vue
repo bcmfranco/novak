@@ -208,7 +208,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #65849f;
+    background-color: #a47561;
   }
 
   h1#logo {
