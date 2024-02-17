@@ -121,6 +121,7 @@ export default {
     },
     shot() { // Hace jugar el punto con show_power y energy
       var shot_power = this.rollDice();
+      this.player_active = 2;
 
       console.log("energy: ",this.energy, "power:", shot_power);
 
@@ -141,11 +142,12 @@ export default {
 
       if(this.computer_play){
         setTimeout(() => {
+          this.player_active = 1;
 
           console.log("va a jugar el 2");
 
           this.shot_com();
-        }, 2000);
+        }, 1000);
       }
 
 
@@ -260,7 +262,7 @@ export default {
     height: 80px;
     font-size: 24px;
     border: none;
-    background-color: #4c96af; /* Cambié el color del botón */
+    background-color: #8b7369;
     color: #ffffff;
     border-radius: 50%;
     cursor: pointer;
@@ -276,7 +278,7 @@ export default {
   }
 
   .racket:hover {
-    background-color: #72b5cc; /* Cambié el color al pasar el ratón */
+    background-color: #e0b173; /* Cambié el color al pasar el ratón */
   }
 
   #buttoner {
@@ -328,7 +330,7 @@ export default {
   #barr {
     width: 30px;
     height: 250px;
-    background-color: #849db2;
+    background-color: #b79b8f;
     display: flex;
     align-items: center;
     border-radius: 15px;
@@ -356,16 +358,16 @@ export default {
     font-size: 48px;
     font-weight: bold;
     color: #ffffff;
-    background-color: #9e9e9e; /* Cambié el color de fondo */
+    background-color: #8e7e78;
     width: 80px;
     height: 80px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Suavicé la sombra */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     margin: 10px 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Añadí una sombra suave */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .dice-roll {
